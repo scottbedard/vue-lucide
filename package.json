@@ -13,16 +13,19 @@
     "url": "git+https://github.com/scottbedard/vue-lucide.git"
   },
   "scripts": {
+    "build": "rollup -c",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "version": "0.0.0",
   "dependencies": {
+    "@rollup/plugin-typescript": "^11.0.0",
     "axios": "^1.2.2",
     "commander": "^10.0.0",
     "dedent": "^0.7.0",
     "lodash": "^4.17.21",
     "rollup": "^3.10.0",
     "ts-node": "^10.9.1",
-    "unzipper": "^0.10.11"
+    "unzipper": "^0.10.11",
+    "vue": "^3.2.45"
   }
 }

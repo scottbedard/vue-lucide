@@ -1,9 +1,9 @@
 const { program } = require('commander')
-const build = require('./cli/build')
+const update = require('./cli/update')
 
 program
-  .command('build')
-  .description('build lucide components')
-  .action(build)
+  .command('update')
+  .description('update lucide components')
+  .action(update)
 
 program.parse()

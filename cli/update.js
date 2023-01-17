@@ -66,21 +66,21 @@ module.exports = async function () {
   const files = readDir(downloadDir, 'lucide-main/icons')
     .filter(file => file.endsWith('.svg'))
 
-    files.forEach(file => {
-      const icon = name(file)
-  
-      const svg = read(downloadDir, 'lucide-main/icons', file)
-        .toString()
-        .split('\n')
-        .map(line => `  ${line}`)
-        .join('\n')
-        .replace(/<svg/, `<svg\n    data-icon="${icon}"`)
-        .replace(/\swidth="\d+"/, ' :width="width || size"')
-        .replace(/\sheight="\d+"/, ' :height="height || size"')
-        .replace(/\sstroke-width="\d+"/, ' :stroke-width="strokeWidth"')
-        .trim()
-  
-      const component = `<template>
+  files.forEach(file => {
+    const icon = name(file)
+
+    const svg = read(downloadDir, 'lucide-main/icons', file)
+      .toString()
+      .split('\n')
+      .map(line => `  ${line}`)
+      .join('\n')
+      .replace(/<svg/, `<svg\n    data-icon="${icon}"`)
+      .replace(/\swidth="\d+"/, ' :width="width || size"')
+      .replace(/\sheight="\d+"/, ' :height="height || size"')
+      .replace(/\sstroke-width="\d+"/, ' :stroke-width="strokeWidth"')
+      .trim()
+
+    const component = `<template>
   ${svg}
 </template>
 
@@ -104,15 +104,19 @@ withDefaults(defineProps<{
   //
   // step 4: write index file
   //
-  
-  
-  const index = ''
+  let index = ''
 
-  const indexPath = resolve(iconsDir, 'index.js')
+  const indexPath = resolve(iconsDir, 'index.ts')
 
   if (exists(indexPath)) {
     await rm(indexPath)
   }
+
+  files.forEach(file => {
+    const icon = name(file)
+
+    index += `export { default as ${icon} } from './${icon}.vue'\n`
+  })
 
   write(indexPath, index)
 }
