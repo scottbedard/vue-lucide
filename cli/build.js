@@ -54,6 +54,7 @@ module.exports = async function () {
   //
   console.log('  - Writing components')
 
+  let names = []
   const iconsDir = resolve('dist')
 
   if (exists(iconsDir)) {
@@ -105,9 +106,13 @@ withDefaults(defineProps<{
   //
   
   
-  const index = `module.exports = {
+  const index = ''
 
-}\n`
+  const indexPath = resolve(iconsDir, 'index.js')
 
-  write(resolve(iconsDir, 'index.js'), index)
+  if (exists(indexPath)) {
+    await rm(indexPath)
+  }
+
+  write(indexPath, index)
 }
