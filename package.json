@@ -1,0 +1,19 @@
+{
+  "author": "Scott Bedard",
+  "bugs": {
+    "url": "https://github.com/scottbedard/vue-lucide/issues"
+  },
+  "description": "Tree shakeable Lucide icons",
+  "homepage": "https://github.com/scottbedard/vue-lucide#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "name": "@bedard/vue-lucide",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scottbedard/vue-lucide.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.0.0"
+}
