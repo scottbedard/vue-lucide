@@ -6,7 +6,8 @@
   "description": "Tree shakeable Lucide icons",
   "homepage": "https://github.com/scottbedard/vue-lucide#readme",
   "license": "MIT",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
   "name": "@bedard/vue-lucide",
   "repository": {
     "type": "git",

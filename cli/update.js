@@ -55,7 +55,7 @@ module.exports = async function () {
   console.log('  - Writing components')
 
   let names = []
-  const iconsDir = resolve('dist')
+  const iconsDir = resolve('src')
 
   if (exists(iconsDir)) {
     await rm(iconsDir)
