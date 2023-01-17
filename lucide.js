@@ -1,5 +1,5 @@
 const { program } = require('commander')
-const build = require('./commands/build')
+const build = require('./cli/build')
 
 program
   .command('build')
