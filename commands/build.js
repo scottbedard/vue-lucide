@@ -84,7 +84,7 @@ module.exports = async function () {
   ${svg}
 </template>
 
-<script setup>
+<script lang="ts" setup>
 withDefaults(defineProps<{
   height?: number | string
   size?: number | string
