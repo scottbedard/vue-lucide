@@ -1,0 +1,39 @@
+
+<template>
+  <svg
+    data-icon="CloudSunRainIcon"
+    xmlns="http://www.w3.org/2000/svg"
+    :width="width || size"
+    :height="height || size"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    :stroke-width="strokeWidth"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path d="M12 2v2" />
+    <path d="m4.93 4.93 1.41 1.41" />
+    <path d="M20 12h2" />
+    <path d="m19.07 4.93-1.41 1.41" />
+    <path d="M15.947 12.65a4 4 0 0 0-5.925-4.128" />
+    <path d="M3 20a5 5 0 1 1 8.9-4H13a3 3 0 0 1 2 5.24" />
+    <path d="M11 20v2" />
+    <path d="M7 19v2" />
+  </svg>
+</template>
+
+<script lang="ts" setup>
+withDefaults(defineProps<{
+  height?: number | string
+  size?: number | string
+  strokeWidth?: number | string
+  width?: number | string
+}>(), {
+  height: 0,
+  size: 24,
+  strokeWidth: 2,
+  width: 0,
+})
+</script>
+
