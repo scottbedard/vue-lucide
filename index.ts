@@ -1,9 +1,9 @@
 import { program } from 'commander'
-import compile from './cli/compile'
+import generate from './cli/generate'
 
 program
-  .command('compile')
-  .description('compile lucide components')
-  .action(compile)
+  .command('generate')
+  .description('generate lucide components')
+  .action(generate)
 
 program.parse()

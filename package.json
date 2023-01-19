@@ -30,9 +30,10 @@
     "url": "git+https://github.com/scottbedard/vue-lucide.git"
   },
   "scripts": {
-    "build": "vite build",
+    "build": "npm run generate && npm run compile",
     "cli": "ts-node ./index.ts",
-    "compile": "npm run cli -- compile",
+    "compile": "vite build",
+    "generate": "npm run cli -- generate",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "version": "0.0.0"

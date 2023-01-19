@@ -129,27 +129,7 @@ withDefaults(defineProps<{
   fs.writeFileSync(indexPath, index)
 
   //
-  // step 5: write shims file
-  //
-  console.log('  - Writing shims...')
-
-  const shimsPath = path.resolve(__dirname, '../src/shims-vue.d.ts')
-
-  if (fs.existsSync(shimsPath)) {
-    await rimraf(shimsPath)
-  }
-
-  const shimsContent = `declare module '*.vue' {
-  import { DefineComponent } from 'vue'
-  const component: DefineComponent<{}, {}, any>
-  export default component
-}
-`
-
-  fs.writeFileSync(shimsPath, shimsContent)
-
-  //
-  // step 6: cleanup
+  // step 5: cleanup
   //
   console.log('  - Cleanup...')
 
