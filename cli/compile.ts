@@ -101,9 +101,10 @@ withDefaults(defineProps<{
   strokeWidth: 2,
   width: 0,
 })
-</script>\n`
+</script>
+`
   
-      fs.writeFileSync(path.resolve(__filename, '../../src', icon + '.vue'), component)
+      fs.writeFileSync(path.resolve(__dirname, '../src', icon + '.vue'), component)
     })
 
   //
@@ -113,7 +114,7 @@ withDefaults(defineProps<{
 
   let index = ''
 
-  const indexPath = path.resolve(__filename, '../../src', 'index.ts')
+  const indexPath = path.resolve(__dirname, '../src', 'index.ts')
 
   if (fs.existsSync(indexPath)) {
     await rimraf(indexPath)
@@ -125,12 +126,32 @@ withDefaults(defineProps<{
     index += `export { default as ${icon} } from './${icon}.vue'\n`
   })
 
+  fs.writeFileSync(indexPath, index)
+
   //
-  // step 5: cleanup
+  // step 5: write shims file
+  //
+  console.log('  - Writing shims...')
+
+  const shimsPath = path.resolve(__dirname, '../src/shims-vue.d.ts')
+
+  if (fs.existsSync(shimsPath)) {
+    await rimraf(shimsPath)
+  }
+
+  const shimsContent = `declare module '*.vue' {
+  import { DefineComponent } from 'vue'
+  const component: DefineComponent<{}, {}, any>
+  export default component
+}
+`
+
+  fs.writeFileSync(shimsPath, shimsContent)
+
+  //
+  // step 6: cleanup
   //
   console.log('  - Cleanup...')
-
-  fs.writeFileSync(indexPath, index)
 
   await sleep(50)
 

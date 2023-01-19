@@ -1,20 +1,15 @@
 {
   "compilerOptions": {
+    "allowJs": true,
     "esModuleInterop": true,
-    "jsx": "preserve",
     "lib": ["esnext"],
     "moduleResolution": "node",
-    "paths": {
-      "@/*": ["./src/*"],
-    },
+    "rootDir": "./",
+    "resolveJsonModule": true,
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
     "types": ["node"]
   },
-  "exclude": ["node_modules"],
-  "include": [
-    "shims-vue.d.ts",
-    "src/**/*",
-  ]
+  "exclude": ["node_modules"]
 }
