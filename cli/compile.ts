@@ -3,7 +3,7 @@ import { cyan, green, read, readDir } from './utils'
 import axios from 'axios'
 import fs from 'fs'
 import path from 'path'
-import { rimrafSync } from 'rimraf'
+import { rimraf } from 'rimraf'
 import unzipper from 'unzipper'
 
 const name = (file: string) => upperFirst(camelCase(file.replace('.svg', ''))) + 'Icon'
@@ -34,6 +34,10 @@ export default async function () {
 
   const zipPath = path.resolve(__filename, '../temp/lucide.zip')
 
+  if (fs.existsSync(zipPath)) {
+    await rimraf(zipPath)
+  }
+
   await new Promise(res => {
     const writer = fs.createWriteStream(zipPath)
 
@@ -59,7 +63,7 @@ export default async function () {
   const srcDir = path.resolve(__filename, '../../src')
 
   if (fs.existsSync(srcDir)) {
-    rimrafSync(srcDir)
+    await rimraf(srcDir)
   }
 
   fs.mkdirSync(srcDir)
@@ -112,7 +116,7 @@ withDefaults(defineProps<{
   const indexPath = path.resolve(__filename, '../../src', 'index.ts')
 
   if (fs.existsSync(indexPath)) {
-    rimrafSync(indexPath)
+    await rimraf(indexPath)
   }
 
   files.forEach(file => {
@@ -122,13 +126,6 @@ withDefaults(defineProps<{
   })
 
   fs.writeFileSync(indexPath, index)
-
-  //
-  // cleanup
-  //
-  console.log('  - Cleanup...')
-
-  rimrafSync(tempDir)
 
   console.log()
   console.log(green('Done'))
