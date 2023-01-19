@@ -1,5 +1,5 @@
 import { camelCase, upperFirst } from 'lodash'
-import { cyan, green, read, readDir } from './utils'
+import { cyan, green, sleep } from './utils'
 import axios from 'axios'
 import fs from 'fs'
 import path from 'path'
@@ -15,7 +15,7 @@ export default async function () {
   //
   // step 1: download icons
   //
-  const tempDir = path.resolve(__filename, '../temp')
+  const tempDir = path.resolve(__dirname, 'temp')
 
   if (!fs.existsSync(tempDir)) {
     fs.mkdirSync(tempDir)
@@ -32,7 +32,7 @@ export default async function () {
   //
   console.log('  - Unzipping...')
 
-  const zipPath = path.resolve(__filename, '../temp/lucide.zip')
+  const zipPath = path.resolve(__dirname, 'temp/lucide.zip')
 
   if (fs.existsSync(zipPath)) {
     await rimraf(zipPath)
@@ -60,7 +60,7 @@ export default async function () {
   console.log('  - Writing components...')
 
   let names = []
-  const srcDir = path.resolve(__filename, '../../src')
+  const srcDir = path.resolve(__dirname, '../src')
 
   if (fs.existsSync(srcDir)) {
     await rimraf(srcDir)
@@ -68,13 +68,13 @@ export default async function () {
 
   fs.mkdirSync(srcDir)
 
-  const files = readDir(tempDir, 'lucide-main/icons')
+  const files = fs.readdirSync(path.resolve(__dirname, 'temp/lucide-main/icons'))
     .filter(file => file.endsWith('.svg'))
 
   files.forEach(file => {
     const icon = name(file)
 
-    const svg = read(tempDir, 'lucide-main/icons', file)
+    const svg = fs.readFileSync(path.resolve(__dirname, 'temp/lucide-main/icons', file))
       .toString()
       .split('\n')
       .map(line => `  ${line}`)
@@ -125,7 +125,18 @@ withDefaults(defineProps<{
     index += `export { default as ${icon} } from './${icon}.vue'\n`
   })
 
+  //
+  // step 5: cleanup
+  //
+  console.log('  - Cleanup...')
+
   fs.writeFileSync(indexPath, index)
+
+  await sleep(50)
+
+  if (fs.existsSync(tempDir)) {
+    await rimraf(tempDir)
+  }
 
   console.log()
   console.log(green('Done'))

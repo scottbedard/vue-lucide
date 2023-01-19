@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'path'
 
 /**
- * Console color helpers
+ * Console colors
  */
 export function color(prefix: string, str: string) {
   return `${prefix}${str}\x1b[0m`
@@ -25,43 +25,8 @@ export function yellow(str: string) {
 }
 
 /**
- * Check if a file exists
+ * Util
  */
-export function exists(...args: string[]) {
-  return fs.existsSync(resolve(...args))
-}
-
-/**
- * Make directory
- */
-export function mkdir(...args: string[]) {
-  return fs.mkdirSync(resolve(...args))
-}
-
-/**
- * Resolve a path
- */
-export function resolve(...args: string[]) {
-  return path.resolve(__filename, '..', ...args)
-}
-
-/**
- * Read file
- */
-export function read(...args: string[]) {
-  return fs.readFileSync(resolve(...args)).toString()
-}
-
-/**
- * Read directory
- */
-export function readDir(...args: string[]) {
-  return fs.readdirSync(resolve(...args))
-}
-
-/**
- * Write a file
- */
-export function write(p: string, src: string) {
-  return fs.writeFileSync(resolve(p), src)
+export function sleep(ms: number) {
+  return new Promise(r => setTimeout(r, ms))
 }
