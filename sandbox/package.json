@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@bedard/vue-lucide": "file:..",
     "vue": "^3.2.45"
   },
   "devDependencies": {

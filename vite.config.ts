@@ -8,14 +8,18 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
-      name: 'VueLucide',
-      fileName: 'vue-lucide',
+      name: 'index',
     },
     rollupOptions: {
       external: [
         'vue',
       ],
-    }
+      output: {
+        globals: {
+          vue: 'Vue'
+        },
+      },
+    },
   },
   plugins: [
     vue(),

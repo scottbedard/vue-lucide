@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     "allowJs": true,
+    "declaration": true,
     "esModuleInterop": true,
+    "emitDeclarationOnly": true,
     "lib": ["esnext"],
     "moduleResolution": "node",
     "rootDir": "./",
