@@ -1,6 +1,6 @@
 <template>
-  <div>
-    Hello, I'm Mr. Meeseeks! Look at me!
+  <div class="flex items-center">
+    Hello, I'm Mr. Meeseeks! Look at me! <ArrowRightIcon size="20" />
   </div>
 </template>
 
