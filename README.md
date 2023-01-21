@@ -38,7 +38,7 @@ import { ShareIcon } from '@bedard/lucide-vue'
 </script>
 ```
 
-To set the height and width together, use the `size` attribute. If no `stroke` is defined, icons will use the current text color.
+Use `size` to set the height and width together. If no `stroke` is defined, icons will use the current text color.
 
 ## Updating
 
