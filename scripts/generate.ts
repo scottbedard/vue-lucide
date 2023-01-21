@@ -141,6 +141,7 @@ withDefaults(defineProps<{
 
   console.log()
   console.log(green('Done'))
+  console.log()
 }
 
 generate()
