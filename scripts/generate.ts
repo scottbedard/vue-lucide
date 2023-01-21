@@ -8,8 +8,8 @@ import unzipper from 'unzipper'
 
 const name = (file: string) => upperFirst(camelCase(file.replace('.svg', ''))) + 'Icon'
 
-export default async function () {
-  console.log(cyan('Building icons...'))
+async function generate () {
+  console.log(cyan('Generating icons...'))
   console.log()
 
   //
@@ -142,3 +142,5 @@ withDefaults(defineProps<{
   console.log()
   console.log(green('Done'))
 }
+
+generate()
