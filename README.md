@@ -30,7 +30,9 @@ import { ShareIcon } from '@bedard/lucide-vue'
 </script>
 ```
 
-## Updating icons
+To set the height and width together, use the `size` attribute. If no `stroke` is defined, icons will use the current text color.
+
+## Updating
 
 When this library falls out of sync with Lucide, run the following commands.
 
