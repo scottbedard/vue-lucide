@@ -13,7 +13,7 @@ Tree-shakeable Vue components for [Lucide icons](https://lucide.dev/)
 Install via NPM
 
 ```
-npm install @bedard/lucide-vue
+npm install @bedard/vue-lucide
 ```
 
 Install via cdn
