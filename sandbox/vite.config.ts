@@ -8,7 +8,7 @@ export default defineConfig({
   resolve: {
     alias: [
       {
-        find: '@bedard/vue-sortablejs',
+        find: '@bedard/vue-lucide',
         replacement: path.resolve(__dirname, '..'),
       },
     ],
