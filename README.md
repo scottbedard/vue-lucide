@@ -16,6 +16,14 @@ Install via NPM
 npm install @bedard/lucide-vue
 ```
 
+Install via cdn
+
+```html
+<script src="https://unpkg.com/@bedard/vue-lucide"></script>
+```
+
+The cdn bundle is very big, do not use it for anything serious.
+
 ## Basic use
 
 All components are suffixed with `Icon`. For cdn use, access icons via `window.VueLucide`.
