@@ -15,7 +15,11 @@
     <div class="border-t border-gray-400" />
 
     <div>
-      A proper sandbox is coming soon, give it time.
+      A proper sandbox is coming soon, give it time <ThumbsUpIcon class="inline ml-1 -translate-y-1" size="20" />
     </div>
   </div>
 </template>
+
+<script lang="ts" setup>
+import { ThumbsUpIcon } from '@bedard/vue-lucide'
+</script>
