@@ -79,10 +79,9 @@ async function generate () {
       .split('\n')
       .map(line => `  ${line}`)
       .join('\n')
-      .replace(/<svg/, `<svg\n    data-icon="${icon}"`)
-      .replace(/\swidth="\d+"/, ' :width="width || size"')
-      .replace(/\sheight="\d+"/, ' :height="height || size"')
-      .replace(/\sstroke-width="\d+"/, ' :stroke-width="strokeWidth"')
+      .replace(/<svg/, `<svg\n    data-lucide="${icon}"`)
+      .replace(/\swidth="\d+"/, ' :width="width ?? size ?? 24"')
+      .replace(/\sheight="\d+"/, ' :height="height ?? size ?? 24"')
       .trim()
 
     const component = `<template>
@@ -90,17 +89,11 @@ async function generate () {
 </template>
 
 <script lang="ts" setup>
-withDefaults(defineProps<{
+defineProps<{
   height?: number | string
   size?: number | string
-  strokeWidth?: number | string
   width?: number | string
-}>(), {
-  height: 0,
-  size: 24,
-  strokeWidth: 2,
-  width: 0,
-})
+}>()
 </script>
 `
   
