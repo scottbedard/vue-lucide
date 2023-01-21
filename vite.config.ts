@@ -11,6 +11,11 @@ export default defineConfig({
       name: 'VueLucide',
       fileName: 'vue-lucide',
     },
+    rollupOptions: {
+      external: [
+        'vue',
+      ],
+    }
   },
   plugins: [
     vue(),
