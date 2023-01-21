@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 import path from 'path'
+import pkg from './package.json'
 import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
@@ -9,9 +10,9 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
-      fileName: 'vue-lucide',
-      formats: ['es'],
-      name: 'index',
+      fileName: 'index',
+      formats: ['es', 'umd'],
+      name: 'VueLucide',
     },
     rollupOptions: {
       external: [
@@ -19,7 +20,7 @@ export default defineConfig({
       ],
       output: {
         globals: {
-          vue: 'Vue'
+          vue: 'Vue',
         },
       },
     },

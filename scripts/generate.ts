@@ -1,26 +1,31 @@
 import { camelCase, upperFirst } from 'lodash'
 import { cyan, green, sleep } from './utils'
+import { rimraf } from 'rimraf'
 import axios from 'axios'
 import fs from 'fs'
 import path from 'path'
-import { rimraf } from 'rimraf'
 import unzipper from 'unzipper'
 
 const name = (file: string) => upperFirst(camelCase(file.replace('.svg', ''))) + 'Icon'
 
 async function generate () {
+  const tempDir = path.resolve(__dirname, 'temp')
+  const srcDir = path.resolve(__dirname, '../src')
+
   console.log(cyan('Generating icons...'))
   console.log()
 
-  //
-  // step 1: download icons
-  //
-  const tempDir = path.resolve(__dirname, 'temp')
+  if (fs.existsSync(srcDir)) {
+    await rimraf(srcDir)
+  }
 
   if (!fs.existsSync(tempDir)) {
     fs.mkdirSync(tempDir)
   }
 
+  //
+  // step 1: download icons
+  //
   console.log('  - Downloading...')
 
   const lucide = await axios.get('https://github.com/lucide-icons/lucide/archive/refs/heads/main.zip', {
@@ -60,7 +65,6 @@ async function generate () {
   console.log('  - Writing components...')
 
   let names = []
-  const srcDir = path.resolve(__dirname, '../src')
 
   if (fs.existsSync(srcDir)) {
     await rimraf(srcDir)
