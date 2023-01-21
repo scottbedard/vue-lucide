@@ -1,6 +1,6 @@
 <template>
   <div>
-    Hello, I'm Mr. Meeseeks! Look at me! <ArrowRightIcon />
+    Hello, I'm Mr. Meeseeks! Look at me!
   </div>
 </template>
 
