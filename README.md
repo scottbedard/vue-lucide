@@ -18,7 +18,7 @@ npm install @bedard/lucide-vue
 
 ## Basic use
 
-All components are prefixed with `Icon`. For cdn use, access icons via `window.VueLucide`.
+All components are suffixed with `Icon`. For cdn use, access icons via `window.VueLucide`.
 
 ```vue
 <template>
