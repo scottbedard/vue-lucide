@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "esModuleInterop": true,
     "isolatedModules": true,
     "jsx": "preserve",
@@ -7,6 +8,9 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "noEmit": true,
+    "paths": {
+      "@/*": ["src/*"],
+    },
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,

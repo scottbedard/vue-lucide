@@ -8,6 +8,10 @@ export default defineConfig({
   resolve: {
     alias: [
       {
+        find: '@',
+        replacement: path.resolve(__dirname, 'src')
+      },
+      {
         find: '@bedard/vue-lucide',
         replacement: path.resolve(__dirname, '..'),
       },
