@@ -126,6 +126,13 @@ defineProps<{
   fs.writeFileSync(indexPath, index)
 
   //
+  // step 5: copy json file
+  //
+  console.log('  - Copying json...')
+
+  fs.copyFileSync(path.resolve(tempDir, 'lucide-main/icons.json'), path.resolve(__dirname, '../sandbox/src/icons.json'))
+
+  //
   // step 5: cleanup
   //
   console.log('  - Cleanup...')
