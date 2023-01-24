@@ -1,14 +1,39 @@
 <template>
   <div class="py-6">
-    <Margin class="gap-1 grid">
-      <h1 class="font-bold font-mono text-2xl">
-        <a href="https://github.com/scottbedard/vue-lucide">
-          @bedard/vue-lucide
-        </a>
-      </h1>
+    <Margin class="flex items-center justify-between gap-6 flex-wrap">
+      <div>
+        <h1 class="font-mono text-2xl">
+          <a href="https://github.com/scottbedard/vue-lucide">
+            @bedard/vue-lucide
+          </a>
+        </h1>
 
-      <div class="text-gray-800 tracking-wide">
-        Tree shakeable Vue components for <a href="https://lucide.dev/" target="_blank">Lucide icons</a>
+        <div class="text-gray-800 tracking-wide">
+          Tree shakeable Vue components for <a href="https://lucide.dev/" target="_blank">Lucide icons</a>
+        </div>
+      </div>
+
+      <div class="flex gap-x-12">
+        <Transition
+          enter-active-class="duration-150 ease-out transition"
+          enter-from-class="opacity-0 -translate-y-4"
+          enter-to-class="opacity-100 translate-y-0"
+          leave-active-class="duration-150 ease-out transition"
+          leave-from-class="opacity-100 translate-y-0"
+          leave-to-class="opacity-0 -translate-y-4">
+          <a
+            v-if="selected.length"
+            class="flex items-center gap-x-2"
+            @click="onClearClick">
+            Clear selected <VueLucide.SlashIcon />
+          </a>
+        </Transition>
+
+        <a
+          class="flex items-center gap-x-2"
+          @click="onCopyClick">
+          Copy <VueLucide.ClipboardIcon />
+        </a>
       </div>
     </Margin>
 
@@ -63,7 +88,7 @@ import { camelCase, upperFirst } from 'lodash'
 import { computed, ref } from 'vue'
 import { useEventListener } from '@vueuse/core'
 import { useFocus } from '@vueuse/core'
-import { useStorage } from '@vueuse/core'
+import { useClipboard, useStorage } from '@vueuse/core'
 import * as VueLucide from '@bedard/vue-lucide'
 import json from './icons.json'
 import Margin from '@/components/Margin.vue'
@@ -71,6 +96,8 @@ import Margin from '@/components/Margin.vue'
 const inputEl = ref<HTMLElement>()
 
 const { focused } = useFocus(inputEl)
+
+const clipboard = useClipboard()
 
 const icons = computed(() => {
   const normalizedSearch = search.value.toLowerCase().replace(/\W/g, '').toLocaleLowerCase()
@@ -118,4 +145,12 @@ useEventListener('keydown', e => {
     return
   }
 })
+
+const onClearClick = () => {
+  selected.value = []
+}
+
+const onCopyClick = () => {
+  clipboard.copy(selected.value.join(', '))
+}
 </script>
