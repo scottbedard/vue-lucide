@@ -31,10 +31,13 @@
 
     <Margin>
       <div class="gap-3 grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-10 sm:gap-4 md:gap-6">
-        <div
+        <button
           v-for="icon in icons"
-          class="aspect-square bg-white flex flex-col gap-4 items-center justify-center overflow-hidden text-ellipsis p-4 rounded-lg shadow-md"
-          :key="icon.name">
+          :class="['aspect-square bg-white duration-150 flex flex-col gap-4 items-center justify-center overflow-hidden text-ellipsis p-4 rounded-lg shadow-md transition hover:shadow-lg', {
+            'bg-blue-100/50': isSelected(icon.name),
+          }]"
+          :key="icon.name"
+          @click="toggleSelected(icon.name)">
           <div>
             <Component
               :is="icon.component"
@@ -44,7 +47,7 @@
           <div
             v-text="icon.name"
             class="overflow-hidden text-center text-ellipsis text-xs tracking-wide w-full md:text-sm" />
-        </div>
+        </button>
       </div>
     </Margin>
   </div>
@@ -80,9 +83,21 @@ const icons = computed(() => {
     .filter(icon => icon.properName.toLowerCase().includes(normalizedSearch))
 })
 
+const selected = ref<string[]>([])
+
 const search = ref('')
 
 const searchContainer = ref<HTMLElement>()
+
+const isSelected = (name: string) => selected.value.includes(name)
+
+const toggleSelected = (name: string) => {
+  if (isSelected(name)) {
+    selected.value = selected.value.filter(n => n !== name)
+  } else {
+    selected.value.push(name)
+  }
+}
 
 useEventListener('keypress', () => {
   if (!focused.value) {
