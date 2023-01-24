@@ -21,8 +21,12 @@
             v-model="search"
             autofocus
             class="border border-gray-200 h-12 rounded-md px-4 shadow-md w-full"
-            placeholder="Search icons (press any key to focus)"
-            ref="inputEl" />
+            ref="inputEl"
+            :placeholder="
+              selected.length > 0
+                ? 'Press escape to clear selected'
+                : 'Search icons (press any key to focus)'
+            " />
         </Margin>
       </div>
 
@@ -33,6 +37,7 @@
       <div class="gap-3 grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-10 sm:gap-4 md:gap-6">
         <button
           v-for="icon in icons"
+          :title="isSelected(icon.name) ? `Deselect ${icon.name}` : `Select ${icon.name}`"
           :class="['aspect-square bg-white duration-150 flex flex-col gap-4 group items-center justify-center overflow-hidden text-ellipsis p-4 rounded-lg shadow-md transition-shadow hover:shadow-lg hover:text-blue-500', {
             'bg-blue-300/20 text-blue-500': isSelected(icon.name),
           }]"
@@ -46,7 +51,7 @@
 
           <div
             v-text="icon.name"
-            class="overflow-hidden text-center text-ellipsis text-xs tracking-wide w-full md:text-sm" />
+            class="font-bold overflow-hidden text-center text-ellipsis text-xs tracking-wider w-full md:text-sm" />
         </button>
       </div>
     </Margin>
@@ -100,9 +105,17 @@ const toggleSelected = (name: string) => {
   }
 }
 
-useEventListener('keypress', () => {
+useEventListener('keypress', e => {
   if (!focused.value) {
     inputEl.value?.focus()
+  }
+})
+
+useEventListener('keydown', e => {
+  if (e.key === 'Escape' && selected.value.length) {
+    selected.value = []
+
+    return
   }
 })
 </script>
