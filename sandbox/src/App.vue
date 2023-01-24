@@ -13,26 +13,21 @@
         </div>
       </div>
 
-      <div class="flex gap-x-12">
-        <Transition
-          enter-active-class="duration-150 ease-out transition"
-          enter-from-class="opacity-0 -translate-y-4"
-          enter-to-class="opacity-100 translate-y-0"
-          leave-active-class="duration-150 ease-out transition"
-          leave-from-class="opacity-100 translate-y-0"
-          leave-to-class="opacity-0 -translate-y-4">
-          <a
-            v-if="selected.length"
-            class="flex items-center gap-x-2"
-            @click="onClearClick">
-            Clear selected <VueLucide.SlashIcon />
-          </a>
-        </Transition>
+      <div class="flex gap-x-12 w-full sm:w-auto">
+        <a
+          :class="['flex items-center gap-x-2', {
+            'pointer-events-none text-gray-400': !selected.length,
+          }]"
+          @click="onClearClick">
+          Clear selected <VueLucide.SlashIcon />
+        </a>
 
         <a
-          class="flex items-center gap-x-2"
+          :class="['flex items-center gap-x-2', {
+            'pointer-events-none text-gray-400': !selected.length,
+          }]"
           @click="onCopyClick">
-          Copy <VueLucide.ClipboardIcon />
+          Copy to clipboard <VueLucide.ClipboardIcon />
         </a>
       </div>
     </Margin>
@@ -99,8 +94,10 @@ const { focused } = useFocus(inputEl)
 
 const clipboard = useClipboard()
 
+const normalize = (str: string) => str.toLowerCase().replace(/\W/g, '')
+
 const icons = computed(() => {
-  const normalizedSearch = search.value.toLowerCase().replace(/\W/g, '').toLocaleLowerCase()
+  const normalizedSearch = normalize(search.value)
 
   return Object.entries<{ categories: string[], tags: string[] }>(json.icons)
     .map(([name, obj]) => {
@@ -113,7 +110,19 @@ const icons = computed(() => {
         properName,
       }
     })
-    .filter(icon => icon.properName.toLowerCase().includes(normalizedSearch))
+    .filter(icon => {
+      if (icon.properName.toLowerCase().includes(normalizedSearch)) {
+        return true
+      }
+
+      for (let tags of icon.obj.tags) {
+        if (normalize(tags).includes(normalizedSearch)) {
+          return true
+        }
+      }
+
+      return false
+    })
 })
 
 const selected = useStorage<string[]>('selected', [])

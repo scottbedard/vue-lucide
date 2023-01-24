@@ -5,3 +5,7 @@
 a {
   @apply cursor-pointer font-bold hover:text-blue-600 hover:underline;
 }
+
+a:disabled {
+  @apply text-red-500;
+}
