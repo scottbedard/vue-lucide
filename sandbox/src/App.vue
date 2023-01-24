@@ -58,6 +58,7 @@ import { camelCase, upperFirst } from 'lodash'
 import { computed, ref } from 'vue'
 import { useEventListener } from '@vueuse/core'
 import { useFocus } from '@vueuse/core'
+import { useStorage } from '@vueuse/core'
 import * as VueLucide from '@bedard/vue-lucide'
 import json from './icons.json'
 import Margin from '@/components/Margin.vue'
@@ -83,7 +84,7 @@ const icons = computed(() => {
     .filter(icon => icon.properName.toLowerCase().includes(normalizedSearch))
 })
 
-const selected = ref<string[]>([])
+const selected = useStorage<string[]>('selected', [])
 
 const search = ref('')
 
