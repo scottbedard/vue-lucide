@@ -33,8 +33,8 @@
       <div class="gap-3 grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-10 sm:gap-4 md:gap-6">
         <button
           v-for="icon in icons"
-          :class="['aspect-square bg-white duration-150 flex flex-col gap-4 items-center justify-center overflow-hidden text-ellipsis p-4 rounded-lg shadow-md transition hover:shadow-lg', {
-            'bg-blue-100/50': isSelected(icon.name),
+          :class="['aspect-square bg-white duration-150 flex flex-col gap-4 group items-center justify-center overflow-hidden text-ellipsis p-4 rounded-lg shadow-md transition-shadow hover:shadow-lg hover:text-blue-500', {
+            'bg-blue-300/20 text-blue-500': isSelected(icon.name),
           }]"
           :key="icon.name"
           @click="toggleSelected(icon.name)">
