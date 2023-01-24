@@ -19,7 +19,7 @@
             'pointer-events-none text-gray-400': !selected.length,
           }]"
           @click="onClearClick">
-          Clear selected <VueLucide.SlashIcon />
+          Clear selected <VueLucide.SlashIcon size="20" />
         </a>
 
         <a
@@ -27,7 +27,7 @@
             'pointer-events-none text-gray-400': !selected.length,
           }]"
           @click="onCopyClick">
-          Copy to clipboard <VueLucide.ClipboardIcon />
+          Copy to clipboard <Component :is="copyIcon  ? VueLucide.CheckIcon : VueLucide.ClipboardIcon" size="20" />
         </a>
       </div>
     </Margin>
@@ -155,11 +155,19 @@ useEventListener('keydown', e => {
   }
 })
 
+const copyIcon  = ref(false)
+
 const onClearClick = () => {
   selected.value = []
 }
 
 const onCopyClick = () => {
   clipboard.copy(selected.value.join(', '))
+
+  copyIcon.value = true
+  
+  setTimeout(() => {
+    copyIcon.value = false
+  }, 2000)
 }
 </script>
