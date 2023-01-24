@@ -21,27 +21,28 @@
             v-model="search"
             autofocus
             class="border border-gray-200 h-12 rounded-md px-4 shadow-md w-full"
-            placeholder="Search icons (press any key to focus)" />
+            placeholder="Search icons (press any key to focus)"
+            ref="inputEl" />
         </Margin>
       </div>
 
-      <div class="bg-gradient-to-b from-gray-100 to-transparent h-6" />
+      <div class="bg-gradient-to-b from-gray-100 to-transparent h-12 -mt-6" />
     </div>
 
     <Margin>
       <div class="gap-3 grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-10 sm:gap-4 md:gap-6">
         <div
-          v-for="[name, icon] in Object.entries(VueLucide)"
+          v-for="icon in icons"
           class="aspect-square bg-white flex flex-col gap-4 items-center justify-center overflow-hidden text-ellipsis p-4 rounded-lg shadow-md"
-          :key="name">
+          :key="icon.name">
           <div>
             <Component
-              :is="icon"
+              :is="icon.component"
               class="h-8 w-8" />
           </div>
 
           <div
-            v-text="name.substring(0, name.length - 4)"
+            v-text="icon.name"
             class="overflow-hidden text-center text-ellipsis text-xs tracking-wide w-full md:text-sm" />
         </div>
       </div>
@@ -50,18 +51,42 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { camelCase, upperFirst } from 'lodash'
+import { computed, ref } from 'vue'
 import { useEventListener } from '@vueuse/core'
+import { useFocus } from '@vueuse/core'
 import * as VueLucide from '@bedard/vue-lucide'
+import json from './icons.json'
 import Margin from '@/components/Margin.vue'
+
+const inputEl = ref<HTMLElement>()
+
+const { focused } = useFocus(inputEl)
+
+const icons = computed(() => {
+  const normalizedSearch = search.value.toLowerCase().replace(/\W/g, '').toLocaleLowerCase()
+
+  return Object.entries<{ categories: string[], tags: string[] }>(json.icons)
+    .map(([name, obj]) => {
+      const properName = upperFirst(camelCase(name))
+
+      return {
+        component: (VueLucide as any)[properName + 'Icon'],
+        name,
+        obj,
+        properName,
+      }
+    })
+    .filter(icon => icon.properName.toLowerCase().includes(normalizedSearch))
+})
 
 const search = ref('')
 
 const searchContainer = ref<HTMLElement>()
 
-useEventListener('keypress', e => {
-  e.preventDefault()
-
-  searchContainer.value?.querySelector('input')?.focus()
+useEventListener('keypress', () => {
+  if (!focused.value) {
+    inputEl.value?.focus()
+  }
 })
 </script>
